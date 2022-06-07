@@ -12,10 +12,13 @@ use function in_array;
 class PHPParameter extends BasePHPElement
 {
     public $indexInSignature = 0;
+
     /** @var string[] */
     public $typesFromSignature = [];
+
     /** @var string[][] */
     public $typesFromAttribute = [];
+
     /** @var string[] */
     public $typesFromPhpDoc = [];
     public $is_vararg = false;
@@ -66,7 +69,7 @@ class PHPParameter extends BasePHPElement
      * @param stdClass|array $jsonData
      * @throws Exception
      */
-    public function readMutedProblems($jsonData): void
+    public function readMutedProblems($jsonData)
     {
         foreach ($jsonData as $parameter) {
             if ($parameter->name === $this->name && !empty($parameter->problems)) {

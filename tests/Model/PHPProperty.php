@@ -12,8 +12,10 @@ class PHPProperty extends BasePHPElement
 {
     /** @var string[] */
     public $typesFromSignature = [];
+
     /** @var string[][] */
     public $typesFromAttribute = [];
+
     /** @var string[] */
     public $typesFromPhpDoc = [];
     public $access = '';
@@ -21,7 +23,10 @@ class PHPProperty extends BasePHPElement
     public $parentName;
     public $isReadonly = false;
 
-    public function __construct(?string $parentName = null)
+    /**
+     * @param string|null $parentName
+     */
+    public function __construct($parentName = null)
     {
         $this->parentName = $parentName;
     }
@@ -86,7 +91,7 @@ class PHPProperty extends BasePHPElement
      * @param stdClass|array $jsonData
      * @throws Exception
      */
-    public function readMutedProblems($jsonData): void
+    public function readMutedProblems($jsonData)
     {
         foreach ($jsonData as $property) {
             if ($property->name === $this->name && !empty($property->problems)) {

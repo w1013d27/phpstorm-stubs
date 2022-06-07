@@ -418,11 +418,11 @@ class Collator
      * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
      * Get the locale name of the collator
      * @link https://php.net/manual/en/collator.getlocale.php
-     * @param int $type [optional] <p>
+     * @param int $type <p>
      * You can choose between valid and actual locale (
      * <b>Locale::VALID_LOCALE</b> and
      * <b>Locale::ACTUAL_LOCALE</b>,
-     * respectively). The default is the actual locale.
+     * respectively).
      * </p>
      * @return string|false Real locale name from which the collation data comes. If the collator was
      * instantiated from rules or an error occurred, returns
@@ -433,7 +433,7 @@ class Collator
     public function getLocale(
         #[TypeAware(['8.0' => 'int'], default: '')]
         #[EV([Locale::VALID_LOCALE, Locale::ACTUAL_LOCALE])]
-        $type = null
+        $type
     ): string|false {}
 
     /**
@@ -447,7 +447,7 @@ class Collator
     public function getErrorMessage(): string|false {}
 
     /**
-     * (No version information available, might only be in SVN)<br/>
+     * (PHP 5 &gt;= 5.3.2, PECL intl &gt;= 1.0.3)<br/>
      * Get sorting key for a string
      * @link https://php.net/manual/en/collator.getsortkey.php
      * @param string $string <p>
@@ -1202,7 +1202,6 @@ class NumberFormatter
 class Normalizer
 {
     public const NFKC_CF = 48;
-
     public const FORM_KC_CF = 48;
 
     /**
@@ -1864,7 +1863,6 @@ class IntlDateFormatter
      * @link https://php.net/manual/en/class.intldateformatter.php#intl.intldateformatter-constants
      */
     public const TRADITIONAL = 0;
-
     public const RELATIVE_FULL = 128;
     public const RELATIVE_LONG = 129;
     public const RELATIVE_MEDIUM = 130;
@@ -1872,8 +1870,8 @@ class IntlDateFormatter
 
     /**
      * @param string|null $locale
-     * @param int $dateType [optional]
-     * @param int $timeType [optional]
+     * @param int $dateType
+     * @param int $timeType
      * @param mixed|null $timezone [optional]
      * @param mixed|null $calendar [optional]
      * @param string $pattern [optional]
@@ -1881,8 +1879,10 @@ class IntlDateFormatter
     #[Pure]
     public function __construct(
         #[TypeAware(['8.0' => 'string|null'], default: '')] $locale,
-        #[TypeAware(['8.0' => 'int'], default: '')] $dateType,
-        #[TypeAware(['8.0' => 'int'], default: '')] $timeType,
+        #[ElementAvailable(from: '5.3', to: '8.0')] #[TypeAware(['8.0' => 'int'], default: '')] $dateType,
+        #[ElementAvailable(from: '5.3', to: '8.0')] #[TypeAware(['8.0' => 'int'], default: '')] $timeType,
+        #[ElementAvailable(from: '8.1')] int $dateType = 0,
+        #[ElementAvailable(from: '8.1')] int $timeType = 0,
         $timezone = null,
         $calendar = null,
         #[TypeAware(['8.0' => 'string|null'], default: '')] $pattern = ''
@@ -1895,14 +1895,14 @@ class IntlDateFormatter
      * @param string $locale <p>
      * Locale to use when formatting or parsing; default is specified in the ini setting intl.default_locale.
      * </p>
-     * @param int $dateType [optional] <p>
+     * @param int $dateType <p>
      * Date type to use (<b>none</b>,
      * <b>short</b>, <b>medium</b>,
      * <b>long</b>, <b>full</b>).
      * This is one of the
      * IntlDateFormatter constants.
      * </p>
-     * @param int $timeType [optional] <p>
+     * @param int $timeType <p>
      * Time type to use (<b>none</b>,
      * <b>short</b>, <b>medium</b>,
      * <b>long</b>, <b>full</b>).
@@ -1926,8 +1926,10 @@ class IntlDateFormatter
     #[TentativeType]
     public static function create(
         #[TypeAware(['8.0' => 'string|null'], default: '')] $locale,
-        #[TypeAware(['8.0' => 'int'], default: '')] $dateType,
-        #[TypeAware(['8.0' => 'int'], default: '')] $timeType,
+        #[ElementAvailable(from: '5.3', to: '8.0')] #[TypeAware(['8.0' => 'int'], default: '')] $dateType,
+        #[ElementAvailable(from: '5.3', to: '8.0')] #[TypeAware(['8.0' => 'int'], default: '')] $timeType,
+        #[ElementAvailable(from: '8.1')] int $dateType = 0,
+        #[ElementAvailable(from: '8.1')] int $timeType = 0,
         $timezone = null,
         #[TypeAware(['8.0' => 'IntlCalendar|int|null'], default: '')] $calendar = null,
         #[TypeAware(['8.0' => 'string|null'], default: '')] $pattern = ''
@@ -2136,7 +2138,11 @@ class IntlDateFormatter
      * @return string|false The formatted string or, if an error occurred, <b>FALSE</b>.
      */
     #[TentativeType]
-    public function format($datetime = null, #[ElementAvailable(from: '5.3', to: '7.4')] $array = null): string|false {}
+    public function format(
+        #[ElementAvailable(from: '5.3', to: '7.4')] $datetime = null,
+        #[ElementAvailable(from: '8.0')] $datetime,
+        #[ElementAvailable(from: '5.3', to: '7.4')] $array = null
+    ): string|false {}
 
     /**
      * (PHP 5 &gt;= 5.5.0, PECL intl &gt;= 3.0.0)<br/>
@@ -2280,7 +2286,7 @@ class ResourceBundle implements IteratorAggregate, Countable
      * (PHP &gt;= 5.3.2, PECL intl &gt;= 2.0.0)<br/>
      * Get number of elements in the bundle
      * @link https://php.net/manual/en/resourcebundle.count.php
-     * @return int number of elements in the bundle.
+     * @return int<0,max> number of elements in the bundle.
      */
     #[Pure]
     #[TentativeType]
@@ -3830,7 +3836,7 @@ function collator_set_strength(Collator $object, int $strength): bool {}
  * @param string[] &$array <p>
  * Array of strings to sort.
  * </p>
- * @param int $flags [optional] <p>
+ * @param int $flags <p>
  * Optional sorting type, one of the following:
  * </p>
  * <p>
@@ -3839,7 +3845,7 @@ function collator_set_strength(Collator $object, int $strength): bool {}
  * </p>
  * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
-function collator_sort(Collator $object, array &$array, int $flags = null): bool {}
+function collator_sort(Collator $object, array &$array, int $flags = 0): bool {}
 
 /**
  * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
@@ -3857,14 +3863,14 @@ function collator_sort_with_sort_keys(Collator $object, array &$array): bool {}
  * @link https://php.net/manual/en/collator.asort.php
  * @param Collator $object
  * @param string[] &$array <p>Array of strings to sort.</p>
- * @param int $flags [optional] <p>
+ * @param int $flags <p>
  * Optional sorting type, one of the following:
  * <b>Collator::SORT_REGULAR</b>
  * - compare items normally (don't change types)
  * </p>
  * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
-function collator_asort(Collator $object, array &$array, int $flags = null): bool {}
+function collator_asort(Collator $object, array &$array, int $flags = 0): bool {}
 
 /**
  * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
@@ -3953,14 +3959,14 @@ function numfmt_create(string $locale, int $style, #[TypeAware(['8.0' => 'string
  * The value to format. Can be integer or float,
  * other values will be converted to a numeric value.
  * </p>
- * @param int $type [optional] <p>
+ * @param int $type <p>
  * The
  * formatting type to use.
  * </p>
  * @return string|false the string containing formatted value, or <b>FALSE</b> on error.
  */
 #[Pure]
-function numfmt_format(NumberFormatter $formatter, int|float $num, int $type = null): string|false {}
+function numfmt_format(NumberFormatter $formatter, int|float $num, int $type = 0): string|false {}
 
 /**
  * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
@@ -4136,7 +4142,7 @@ function numfmt_get_pattern(NumberFormatter $formatter): string|false {}
  * Get formatter locale
  * @link https://php.net/manual/en/numberformatter.getlocale.php
  * @param NumberFormatter $formatter
- * @param int $type [optional] <p>
+ * @param int $type <p>
  * You can choose between valid and actual locale (
  * <b>Locale::VALID_LOCALE</b>,
  * <b>Locale::ACTUAL_LOCALE</b>,
@@ -4145,7 +4151,7 @@ function numfmt_get_pattern(NumberFormatter $formatter): string|false {}
  * @return string|false The locale name used to create the formatter.
  */
 #[Pure]
-function numfmt_get_locale(NumberFormatter $formatter, int $type = null): string|false {}
+function numfmt_get_locale(NumberFormatter $formatter, int $type = 0): string|false {}
 
 /**
  * (PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)<br/>
@@ -5107,7 +5113,7 @@ function grapheme_stristr(string $haystack, string $needle, bool $beforeNeedle =
  * @param int $size <p>
  * Maximum number items - based on the $extract_type - to return.
  * </p>
- * @param int $type [optional] <p>
+ * @param int $type <p>
  * Defines the type of units referred to by the $size parameter:
  * </p>
  * <p>
@@ -5131,7 +5137,7 @@ function grapheme_stristr(string $haystack, string $needle, bool $beforeNeedle =
  * @return string|false A string starting at offset $start and ending on a default grapheme cluster
  * boundary that conforms to the $size and $extract_type specified.
  */
-function grapheme_extract(string $haystack, int $size, int $type = null, int $offset = 0, &$next = null): string|false {}
+function grapheme_extract(string $haystack, int $size, int $type = 0, int $offset = 0, &$next = null): string|false {}
 
 /**
  * (PHP 5 &gt;= 5.3.0, PHP 7, PECL intl &gt;= 1.0.2, PHP 7, PECL idn &gt;= 0.1)<br/>
@@ -6461,7 +6467,7 @@ function resourcebundle_get_error_message(ResourceBundle $bundle): string {}
  * @param string $id <p>
  * The id.
  * </p>
- * @param int $direction [optional] <p>
+ * @param int $direction <p>
  * The direction, defaults to
  * Transliterator::FORWARD.
  * May also be set to
@@ -6472,7 +6478,7 @@ function resourcebundle_get_error_message(ResourceBundle $bundle): string {}
  * @since 5.4
  */
 #[Pure]
-function transliterator_create(string $id, int $direction = null): ?Transliterator {}
+function transliterator_create(string $id, int $direction = 0): ?Transliterator {}
 
 /**
  * (PHP &gt;= 5.4.0, PECL intl &gt;= 2.0.0)<br/>
@@ -6481,7 +6487,7 @@ function transliterator_create(string $id, int $direction = null): ?Transliterat
  * @param string $rules <p>
  * The rules.
  * </p>
- * @param int $direction [optional] <p>
+ * @param int $direction <p>
  * The direction, defaults to
  * Transliterator::FORWARD.
  * May also be set to
@@ -6492,7 +6498,7 @@ function transliterator_create(string $id, int $direction = null): ?Transliterat
  * @since 5.4
  */
 #[Pure]
-function transliterator_create_from_rules(string $rules, int $direction = null): ?Transliterator {}
+function transliterator_create_from_rules(string $rules, int $direction = 0): ?Transliterator {}
 
 /**
  * (PHP &gt;= 5.4.0, PECL intl &gt;= 2.0.0)<br/>
@@ -6525,12 +6531,12 @@ function transliterator_create_inverse(Transliterator $transliterator): ?Transli
  * @param string $string <p>
  * The string to be transformed.
  * </p>
- * @param int $start [optional] <p>
+ * @param int $start <p>
  * The start index (in UTF-16 code units) from which the string will start
  * to be transformed, inclusive. Indexing starts at 0. The text before will
  * be left as is.
  * </p>
- * @param int $end [optional] <p>
+ * @param int $end <p>
  * The end index (in UTF-16 code units) until which the string will be
  * transformed, exclusive. Indexing starts at 0. The text after will be
  * left as is.
@@ -6539,7 +6545,7 @@ function transliterator_create_inverse(Transliterator $transliterator): ?Transli
  * @since 5.4
  */
 #[Pure]
-function transliterator_transliterate(Transliterator|string $transliterator, string $string, int $start = null, int $end = -1): string|false {}
+function transliterator_transliterate(Transliterator|string $transliterator, string $string, int $start = 0, int $end = -1): string|false {}
 
 /**
  * (PHP &gt;= 5.4.0, PECL intl &gt;= 2.0.0)<br/>
@@ -6687,8 +6693,8 @@ function intltz_get_id_for_windows_id(string $timezoneId, ?string $region = null
  * @link https://php.net/manual/en/intl.constants.php
  */
 define('INTL_MAX_LOCALE_LEN', 156);
-define('INTL_ICU_VERSION', "67.1");
-define('INTL_ICU_DATA_VERSION', "67.1");
+define('INTL_ICU_VERSION', "69.1");
+define('INTL_ICU_DATA_VERSION', "69.1");
 define('ULOC_ACTUAL_LOCALE', 0);
 define('ULOC_VALID_LOCALE', 1);
 define('GRAPHEME_EXTR_COUNT', 0);
@@ -6735,7 +6741,7 @@ define('U_INVALID_STATE_ERROR', 27);
 define('U_COLLATOR_VERSION_MISMATCH', 28);
 define('U_USELESS_COLLATOR_ERROR', 29);
 define('U_NO_WRITE_PERMISSION', 30);
-define('U_STANDARD_ERROR_LIMIT', 31);
+define('U_STANDARD_ERROR_LIMIT', 32);
 define('U_BAD_VARIABLE_DEFINITION', 65536);
 define('U_PARSE_ERROR_START', 65536);
 define('U_MALFORMED_RULE', 65537);
@@ -7460,7 +7466,7 @@ class UConverter
      * @return array|false|null
      */
     #[TentativeType]
-    public static function getAliases(#[TypeAware(['8.0' => 'string'], default: '')] $name = null): array|false|null {}
+    public static function getAliases(#[TypeAware(['8.0' => 'string'], default: '')] $name): array|false|null {}
 
     /**
      * (PHP 5 &gt;=5.5.0)<br/>
@@ -7560,7 +7566,10 @@ class UConverter
      */
     #[Pure]
     #[TentativeType]
-    public static function reasonText(#[TypeAware(['8.0' => 'int'], default: '')] $reason = 0): string {}
+    public static function reasonText(
+        #[ElementAvailable(from: '5.3', to: '7.4')] $reason = 0,
+        #[ElementAvailable(from: '8.0')] int $reason
+    ): string {}
 
     /**
      * (PHP 5 &gt;=5.5.0)<br/>

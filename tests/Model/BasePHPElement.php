@@ -34,12 +34,15 @@ abstract class BasePHPElement
     /** @var string|null */
     public $name;
     public $stubBelongsToCore = false;
+
     /** @var Exception|null */
     public $parseError;
     public $mutedProblems = [];
     public $availableVersionsRangeFromAttribute = [];
+
     /** @var string|null */
     public $sourceFilePath;
+
     /** @var bool */
     public $duplicateOtherElement = false;
 
@@ -58,7 +61,7 @@ abstract class BasePHPElement
     /**
      * @param stdClass|array $jsonData
      */
-    abstract public function readMutedProblems($jsonData): void;
+    abstract public function readMutedProblems($jsonData);
 
     public static function getFQN(Node $node): string
     {
@@ -80,7 +83,11 @@ abstract class BasePHPElement
         return rtrim($fqn, "\\");
     }
 
-    protected static function getReflectionTypeAsArray(?ReflectionType $type): array
+    /**
+     * @param ReflectionType|null $type
+     * @return array
+     */
+    protected static function getReflectionTypeAsArray($type): array
     {
         $reflectionTypes = [];
         if ($type instanceof ReflectionNamedType) {
@@ -148,12 +155,13 @@ abstract class BasePHPElement
                     $types = [];
                     $versionTypesMap = $attr->args[0]->value->items;
                     foreach ($versionTypesMap as $item) {
-                        $firstVersionWithType = $item->key->value;
-                        foreach (new PhpVersions() as $version) {
-                            if ($version >= (float)$firstVersionWithType) {
-                                $types[number_format($version, 1)] =
-                                    explode('|', preg_replace('/\w+\[]/', 'array', $item->value->value));
-                            }
+                        $types[number_format((float)$item->key->value, 1)] =
+                            explode('|', preg_replace('/\w+\[]/', 'array', $item->value->value));
+                    }
+                    $maxVersion = max(array_keys($types));
+                    foreach (new PhpVersions() as $version) {
+                        if ($version > (float)$maxVersion) {
+                            $types[number_format($version, 1)] = $types[$maxVersion];
                         }
                     }
                     $types[$attr->args[1]->name->name] = explode('|', preg_replace('/\w+\[]/', 'array', $attr->args[1]->value->value));

@@ -12,7 +12,7 @@ use StubTests\Model\PHPProperty;
 use StubTests\Model\PhpVersions;
 use StubTests\TestData\Providers\PhpStormStubsSingleton;
 
-class BaseClassesTest extends BaseStubsTest
+class BaseClassesTest extends AbstractBaseStubsTestCase
 {
     /**
      * @dataProvider \StubTests\TestData\Providers\Reflection\ReflectionClassesTestDataProviders::classWithParentProvider
@@ -139,7 +139,7 @@ class BaseClassesTest extends BaseStubsTest
         static::assertSameSize(
             $method->parameters,
             $filteredStubParameters,
-            "Parameter number mismatch for method $className::$method->name. 
+            "Parameter number mismatch for method $className::$method->name.
                          Expected: " . self::getParameterRepresentation($method)
         );
     }

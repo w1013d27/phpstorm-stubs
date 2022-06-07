@@ -28,24 +28,28 @@ use function property_exists;
 use function str_starts_with;
 use function substr;
 
-class StubsMetaExpectedArgumentsTest extends BaseStubsTest
+class StubsMetaExpectedArgumentsTest extends AbstractBaseStubsTestCase
 {
     /**
      * @var ExpectedFunctionArgumentsInfo[]
      */
     private static array $expectedArguments;
+
     /**
      * @var string[]
      */
     private static array $registeredArgumentsSet;
+
     /**
      * @var string[]
      */
     private static array $functionsFqns;
+
     /**
      * @var string[]
      */
     private static array $methodsFqns;
+
     /**
      * @var string[]
      */
@@ -188,9 +192,8 @@ class StubsMetaExpectedArgumentsTest extends BaseStubsTest
             $functionReferenceFqn = self::getFqn($argument->getFunctionReference());
             $index = $argument->getIndex();
             if (array_key_exists($functionReferenceFqn, $functionsFqnsWithIndeces)) {
-                $indices = $functionsFqnsWithIndeces[$functionReferenceFqn];
-                self::assertNotContains($index, $indices, 'Expected arguments for ' . $functionReferenceFqn . ' with index ' . $index . ' already registered');
-                $indices[] = $index;
+                self::assertNotContains($index, $functionsFqnsWithIndeces[$functionReferenceFqn], 'Expected arguments for ' . $functionReferenceFqn . ' with index ' . $index . ' already registered');
+                $functionsFqnsWithIndeces[$functionReferenceFqn][] = $index;
             } else {
                 $functionsFqnsWithIndeces[$functionReferenceFqn] = [$index];
             }

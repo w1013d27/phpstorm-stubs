@@ -22,7 +22,10 @@ interface DateTimeInterface
     public const COOKIE = 'l, d-M-Y H:i:s T';
 
     /**
+     * This format is not compatible with ISO-8601, but is left this way for backward compatibility reasons.
+     * Use DateTime::ATOM or DATE_ATOM for compatibility with ISO-8601 instead.
      * @since 7.2
+     * @deprecated
      */
     public const ISO8601 = 'Y-m-d\TH:i:sO';
 
@@ -160,27 +163,15 @@ class DateTimeImmutable implements DateTimeInterface
      * @link https://secure.php.net/manual/en/datetimeimmutable.construct.php
      * @param string $datetime [optional]
      * <p>A date/time string. Valid formats are explained in {@link https://secure.php.net/manual/en/datetime.formats.php Date and Time Formats}.</p>
-     * <p>
-     * Enter <b>NULL</b> here to obtain the current time when using
-     * the <em>$timezone</em> parameter.
-     * </p>
+     * <p>Enter <b>NULL</b> here to obtain the current time when using the <em>$timezone</em> parameter.</p>
      * @param null|DateTimeZone $timezone [optional] <p>
-     * A {@link https://secure.php.net/manual/en/class.datetimezone.php DateTimeZone} object representing the
-     * timezone of <em>$time</em>.
+     * A {@link https://secure.php.net/manual/en/class.datetimezone.php DateTimeZone} object representing the timezone of <em>$datetime</em>.
      * </p>
-     * <p>
-     * If <em>$timezone</em> is omitted,
-     * the current timezone will be used.
-     * </p>
-     * <blockquote><p><b>Note</b>:
-     * </p><p>
-     * The <em>$timezone</em> parameter
-     * and the current timezone are ignored when the
-     * <em>$datetime</em> parameter either
-     * is a UNIX timestamp (e.g. <em>@946684800</em>)
-     * or specifies a timezone
-     * (e.g. <em>2010-01-28T15:00:00+02:00</em>).
-     * </p> <p></p></blockquote>
+     * <p>If <em>$timezone</em> is omitted, the current timezone will be used.</p>
+     * <blockquote><p><b>Note</b>:</p><p>
+     * The <em>$timezone</em> parameter and the current timezone are ignored when the <em>$datetime</em> parameter either
+     * is a UNIX timestamp (e.g. <em>@946684800</em>) or specifies a timezone (e.g. <em>2010-01-28T15:00:00+02:00</em>).
+     * </p></blockquote>
      * @throws Exception Emits Exception in case of an error.
      */
     public function __construct(
@@ -306,7 +297,7 @@ class DateTimeImmutable implements DateTimeInterface
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $hour,
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $minute,
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $second = 0,
-        #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $microsecond = 0
+        #[PhpStormStubsElementAvailable(from: '7.1')] #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $microsecond = 0
     ): DateTimeImmutable {}
 
     /**
@@ -618,7 +609,7 @@ class DateTime implements DateTimeInterface
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $hour,
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $minute,
         #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $second = 0,
-        #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $microsecond = 0
+        #[PhpStormStubsElementAvailable(from: '7.1')] #[LanguageLevelTypeAware(['8.0' => 'int'], default: '')] $microsecond = 0
     ): DateTime {}
 
     /**

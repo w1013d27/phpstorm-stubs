@@ -227,7 +227,7 @@ define('CURLOPT_POSTREDIR', 161);
  */
 define('CURLOPT_CERTINFO', 172);
 /**
- * An alias of <b>CURLOPT_TRANSFERTEXT<b>. Use that instead.
+ * An alias of <b>CURLOPT_TRANSFERTEXT</b>. Use that instead.
  * @link https://www.php.net/manual/en/function.curl-setopt.php
  */
 define('CURLOPT_FTPASCII', -1);
@@ -615,7 +615,7 @@ define('CURLOPT_MAXCONNECTS', 71);
 /**
  * This option is deprecated, as it was never implemented in cURL and never had any effect.
  * @link https://www.php.net/manual/en/function.curl-setopt.php
- * @deprecated 5.6
+ * @removed 5.6
  */
 define('CURLOPT_CLOSEPOLICY', 72);
 /**
@@ -871,7 +871,7 @@ define('CURLOPT_FTP_CREATE_MISSING_DIRS', 110);
 
 /**
  * Any data that should be associated with this cURL handle.
- * This data can subsequently be retrieved with the <b>CURLINFO_PRIVATE<b> option of {@see curl_getinfo()}. cURL does nothing with this data.
+ * This data can subsequently be retrieved with the <b>CURLINFO_PRIVATE</b> option of {@see curl_getinfo()}. cURL does nothing with this data.
  * When using a cURL multi handle, this private data is typically a unique key to identify a standard cURL handle.
  * @link https://php.net/manual/en/curl.constants.php
  * @since 5.2.4
@@ -977,31 +977,31 @@ define('CURLINFO_RTSP_SESSION_ID', 1048612);
 /**
  * Value for the <b>CURLOPT_CLOSEPOLICY</b> option.
  * @link https://www.php.net/manual/en/curl.constants.php
- * @deprecated it was never implemented in cURL and never had any effect.
+ * @removed 5.6
  */
 define('CURLCLOSEPOLICY_LEAST_RECENTLY_USED', 2);
 /**
  * Value for the <b>CURLOPT_CLOSEPOLICY</b> option.
  * @link https://www.php.net/manual/en/curl.constants.php
- * @deprecated it was never implemented in cURL and never had any effect.
+ * @removed 5.6
  */
 define('CURLCLOSEPOLICY_LEAST_TRAFFIC', 3);
 /**
  * Value for the <b>CURLOPT_CLOSEPOLICY</b> option.
  * @link https://www.php.net/manual/en/curl.constants.php
- * @deprecated it was never implemented in cURL and never had any effect.
+ * @removed 5.6
  */
 define('CURLCLOSEPOLICY_SLOWEST', 4);
 /**
  * Value for the <b>CURLOPT_CLOSEPOLICY</b> option.
  * @link https://www.php.net/manual/en/curl.constants.php
- * @deprecated it was never implemented in cURL and never had any effect.
+ * @removed 5.6
  */
 define('CURLCLOSEPOLICY_CALLBACK', 5);
 /**
  * Value for the <b>CURLOPT_CLOSEPOLICY</b> option.
  * @link https://www.php.net/manual/en/curl.constants.php
- * @deprecated it was never implemented in cURL and never had any effect.
+ * @removed 5.6
  */
 define('CURLCLOSEPOLICY_OLDEST', 1);
 /**
@@ -2083,7 +2083,7 @@ define('CURLPIPE_NOTHING', 0);
  * If this bit is set, libcurl will try to pipeline HTTP/1.1 requests on connections that are already established and in use to hosts.
  * @link https://php.net/manual/en/curl.constants.php
  * @link https://curl.haxx.se/libcurl/c/CURLMOPT_PIPELINING.html
- * @deprecated has no effect since version 7.62.0.
+ * @deprecated 7.4
  * @since 7.0.7
  */
 define('CURLPIPE_HTTP1', 1);
@@ -3210,7 +3210,7 @@ define("CURL_RTSPREQ_DESCRIBE", 2);
  * Value for the <b>CURLOPT_RTSP_REQUEST</b> option.
  * Retrieve a parameter from the server.
  * By default, libcurl will automatically include a <em>Content-Type: text/parameters</em> header on all non-empty requests
- * unless a custom one is set. <B>GET_PARAMETER</b> acts just like an HTTP PUT or POST
+ * unless a custom one is set. <b>GET_PARAMETER</b> acts just like an HTTP PUT or POST
  * @link https://curl.haxx.se/libcurl/c/CURLOPT_RTSP_REQUEST.html
  */
 define("CURL_RTSPREQ_GET_PARAMETER", 8);

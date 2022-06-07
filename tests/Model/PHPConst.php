@@ -19,10 +19,12 @@ class PHPConst extends BasePHPElement
      * @var string|null
      */
     public $parentName;
+
     /**
      * @var bool|int|string|float|null
      */
     public $value;
+
     /**
      * @var string|null
      */
@@ -109,7 +111,7 @@ class PHPConst extends BasePHPElement
      * @param stdClass|array $jsonData
      * @throws Exception
      */
-    public function readMutedProblems($jsonData): void
+    public function readMutedProblems($jsonData)
     {
         foreach ($jsonData as $constant) {
             if ($constant->name === $this->name && !empty($constant->problems)) {

@@ -1159,7 +1159,6 @@ class RegexIterator extends FilterIterator
      * Special flag: Match the entry key instead of the entry value.
      */
     public const USE_KEY = 1;
-
     public const INVERT_MATCH = 2;
 
     #[LanguageLevelTypeAware(['8.1' => 'string|null'], default: '')]
@@ -1366,7 +1365,6 @@ class RecursiveTreeIterator extends RecursiveIteratorIterator
 {
     public const BYPASS_CURRENT = 4;
     public const BYPASS_KEY = 8;
-
     public const PREFIX_LEFT = 0;
     public const PREFIX_MID_HAS_NEXT = 1;
     public const PREFIX_MID_LAST = 2;
@@ -1752,7 +1750,7 @@ class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Count
      * @param string $data <p>
      * The serialized <b>ArrayObject</b>.
      * </p>
-     * @return void The unserialized <b>ArrayObject</b>.
+     * @return void
      */
     #[TentativeType]
     public function unserialize(#[LanguageLevelTypeAware(['8.0' => 'string'], default: '')] $data): void {}
@@ -1921,7 +1919,7 @@ class ArrayIterator implements SeekableIterator, ArrayAccess, Serializable, Coun
     /**
      * Count elements
      * @link https://php.net/manual/en/arrayiterator.count.php
-     * @return int The number of elements or public properties in the associated
+     * @return int<0,max> The number of elements or public properties in the associated
      * array or object, respectively.
      */
     #[TentativeType]
@@ -2011,7 +2009,7 @@ class ArrayIterator implements SeekableIterator, ArrayAccess, Serializable, Coun
      * @param string $data <p>
      * The serialized ArrayIterator object to be unserialized.
      * </p>
-     * @return string The <b>ArrayIterator</b>.
+     * @return void
      */
     #[TentativeType]
     public function unserialize(#[LanguageLevelTypeAware(['8.0' => 'string'], default: '')] $data): void {}

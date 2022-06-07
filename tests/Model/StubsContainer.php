@@ -13,14 +13,17 @@ class StubsContainer
      * @var PHPConst[]
      */
     private $constants = [];
+
     /**
      * @var PHPFunction[]
      */
     private $functions = [];
+
     /**
      * @var PHPClass[]
      */
     private $classes = [];
+
     /**
      * @var PHPInterface[]
      */
@@ -34,7 +37,13 @@ class StubsContainer
         return $this->constants;
     }
 
-    public function getConstant(string $constantName, ?string $sourceFilePath = null): ?PHPConst
+    /**
+     * @param string $constantName
+     * @param string|null $sourceFilePath
+     * @return PHPConst|null
+     * @throws RuntimeException
+     */
+    public function getConstant(string $constantName, $sourceFilePath = null)
     {
         $constants = array_filter($this->constants, function (PHPConst $const) use ($constantName): bool {
             return $const->name === $constantName && $const->duplicateOtherElement === false
@@ -59,7 +68,7 @@ class StubsContainer
         return null;
     }
 
-    public function addConstant(PHPConst $constant): void
+    public function addConstant(PHPConst $constant)
     {
         if (isset($constant->name)) {
             if (array_key_exists($constant->name, $this->constants)) {
@@ -69,6 +78,7 @@ class StubsContainer
                         return $nextConstant->name === $constant->name;
                     }
                 ));
+                $constant->duplicateOtherElement = true;
                 $this->constants[$constant->name . '_duplicated_' . $amount] = $constant;
             } else {
                 $this->constants[$constant->name] = $constant;
@@ -91,7 +101,7 @@ class StubsContainer
      * @return PHPFunction|null
      * @throws RuntimeException
      */
-    public function getFunction(string $name, ?string $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true): ?PHPFunction
+    public function getFunction(string $name, $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true)
     {
         $functions = array_filter($this->functions, function (PHPFunction $function) use ($shouldSuitCurrentPhpVersion, $name): bool {
             return $function->name === $name && (!$shouldSuitCurrentPhpVersion || BasePHPElement::entitySuitsCurrentPhpVersion($function));
@@ -120,7 +130,7 @@ class StubsContainer
         return null;
     }
 
-    public function addFunction(PHPFunction $function): void
+    public function addFunction(PHPFunction $function)
     {
         if (isset($function->name)) {
             if (array_key_exists($function->name, $this->functions)) {
@@ -153,7 +163,7 @@ class StubsContainer
      * @return PHPClass|null
      * @throws RuntimeException
      */
-    public function getClass(string $name, ?string $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true): ?PHPClass
+    public function getClass(string $name, $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true)
     {
         $classes = array_filter($this->classes, function (PHPClass $class) use ($shouldSuitCurrentPhpVersion, $name): bool {
             return $class->name === $name &&
@@ -188,7 +198,7 @@ class StubsContainer
         });
     }
 
-    public function addClass(PHPClass $class): void
+    public function addClass(PHPClass $class)
     {
         if (isset($class->name)) {
             if (array_key_exists($class->name, $this->classes)) {
@@ -212,7 +222,7 @@ class StubsContainer
      * @return PHPInterface|null
      * @throws RuntimeException
      */
-    public function getInterface(string $name, ?string $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true): ?PHPInterface
+    public function getInterface(string $name, $sourceFilePath = null, bool $shouldSuitCurrentPhpVersion = true)
     {
         $interfaces = array_filter($this->interfaces, function (PHPInterface $interface) use ($shouldSuitCurrentPhpVersion, $name): bool {
             return $interface->name === $name &&
@@ -255,7 +265,7 @@ class StubsContainer
         });
     }
 
-    public function addInterface(PHPInterface $interface): void
+    public function addInterface(PHPInterface $interface)
     {
         if (isset($interface->name)) {
             if (array_key_exists($interface->name, $this->interfaces)) {

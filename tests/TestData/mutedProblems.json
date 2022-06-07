@@ -954,41 +954,20 @@
           ]
         }
       ]
+    },
+    {
+      "name": "hash_update_file",
+      "problems": [
+        {
+          "description": "parameter mismatch",
+          "versions": [
+            7.0
+          ]
+        }
+      ]
     }
   ],
   "classes": [
-    {
-      "name": "Exception",
-      "methods": [
-        {
-          "name": "__clone",
-          "problems": [
-            {
-              "description":"has wrong final modifier",
-              "versions": [
-                8.1
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Error",
-      "methods": [
-        {
-          "name": "__clone",
-          "problems": [
-            {
-              "description":"has wrong final modifier",
-              "versions": [
-                8.1
-              ]
-            }
-          ]
-        }
-      ]
-    },
     {
       "name": "Yaf_Application",
       "methods": [
@@ -998,7 +977,8 @@
             {
               "description": "parameter mismatch",
               "versions": [
-                8.0, 8.1
+                8.0,
+                8.1
               ]
             }
           ]
@@ -1779,44 +1759,6 @@
                   "description": "wrong default value",
                   "versions": [
                     "ALL"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "addEmptyDir",
-          "parameters": [
-            {
-              "name": "dirname",
-              "problems": [
-                {
-                  "description": "wrong optionallity",
-                  "versions": [
-                    7.1,
-                    7.2,
-                    7.3,
-                    7.4
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "addFromString",
-          "parameters": [
-            {
-              "name": "contents",
-              "problems": [
-                {
-                  "description": "wrong optionallity",
-                  "versions": [
-                    7.1,
-                    7.2,
-                    7.3,
-                    7.4
                   ]
                 }
               ]
@@ -3075,60 +3017,6 @@
       ]
     },
     {
-      "name": "WeakReference",
-      "methods": [
-        {
-          "name": "create",
-          "problems": [
-            {
-              "description": "parameter mismatch",
-              "versions": [
-                "ALL"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Directory",
-      "methods": [
-        {
-          "name": "close",
-          "problems": [
-            {
-              "description": "parameter mismatch",
-              "versions": [
-                "ALL"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "rewind",
-          "problems": [
-            {
-              "description": "parameter mismatch",
-              "versions": [
-                "ALL"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "read",
-          "problems": [
-            {
-              "description": "parameter mismatch",
-              "versions": [
-                "ALL"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "IntlCalendar",
       "methods": [
         {
@@ -3150,6 +3038,7 @@
         {
           "description": "wrong parent",
           "versions": [
+            7.0,
             7.1,
             7.2
           ]
@@ -3165,6 +3054,7 @@
             {
               "description": "has wrong final modifier",
               "versions": [
+                7.0,
                 7.1,
                 7.2,
                 7.3,
@@ -3228,6 +3118,7 @@
             {
               "description": "has wrong static modifier",
               "versions": [
+                7.0,
                 7.1,
                 7.2,
                 7.3,
@@ -3242,6 +3133,7 @@
             {
               "description": "has wrong static modifier",
               "versions": [
+                7.0,
                 7.1,
                 7.2,
                 7.3,
@@ -3260,39 +3152,6 @@
           "parameters": [
             {
               "name": "index",
-              "problems": [
-                {
-                  "description": "wrong optionallity",
-                  "versions": [
-                    7.1,
-                    7.2,
-                    7.3,
-                    7.4
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "getNamedItemNS",
-          "parameters": [
-            {
-              "name": "namespaceURI",
-              "problems": [
-                {
-                  "description": "wrong optionallity",
-                  "versions": [
-                    7.1,
-                    7.2,
-                    7.3,
-                    7.4
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "localName",
               "problems": [
                 {
                   "description": "wrong optionallity",
