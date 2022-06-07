@@ -686,6 +686,10 @@ function strtr(string $str, array $replace_pairs): string {}
 function addslashes(string $string): string {}
 
 /**
+ * var_dump(\addcslashes("\n\r\v\0", "\n\r\v\0"));//string(10) "\n\r\v\000"
+ * 将ascii码范围在0~32和127的字符转换成8进制（\xxx）表示法的字面形式。
+ * 将\n\r等转义序列转换成其转义序列的字面形式。
+ * 对于其它字符在其前面加上反斜线。
  * Quote string with slashes in a C style
  * @link https://php.net/manual/en/function.addcslashes.php
  * @param string $string <p>
